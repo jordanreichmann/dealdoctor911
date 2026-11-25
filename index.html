@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deal Doctor 911 | A Second Look — Jordan Reichmann, Hallmark Home Mortgage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#0B1F3A',
+              slate: '#132B4C',
+              blue: '#1E88C7',
+              sky: '#3AA7E0',
+              green: '#5CB85C',
+              amber: '#D97706',
+              cream: '#F8FAFC',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    .roadblock-card input:checked + div {
+      border-color: #1E88C7;
+      background-color: #EFF8FF;
+      box-shadow: 0 0 0 2px rgba(30, 136, 199, 0.2);
+    }
+    .roadblock-card input:checked + div .roadblock-check {
+      background-color: #1E88C7;
+      border-color: #1E88C7;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sky-100 selection:text-brand-navy">
+
+  <!-- Toast Notification -->
+  <div id="toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 rounded-xl bg-brand-navy px-4 py-3 text-sm font-medium text-white shadow-xl transition-all">
+    <i data-lucide="check-circle-2" class="h-4 w-4 text-emerald-400 shrink-0"></i>
+    <span id="toast-message">Copied to clipboard</span>
+  </div>
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-navy text-white shadow-sm transition group-hover:bg-brand-slate">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 10.5L12 3l9 7.5" />
+            <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+            <path d="M9 21V13h6v8" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-base font-extrabold tracking-tight text-brand-navy">DEAL DOCTOR 911</span>
+            <span class="hidden rounded-full bg-sky-50 px-2 py-0.5 text-[11px] font-semibold text-brand-blue sm:inline-block">24-Hr Second Look</span>
+          </div>
+          <p class="text-[11px] font-medium text-slate-500">Powered by Hallmark Home Mortgage at Fairway</p>
+        </div>
+      </a>
+
+      <nav class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+        <a href="#how-it-works" class="transition hover:text-brand-navy">How It Works</a>
+        <a href="#scenario-form" class="transition hover:text-brand-navy">Submit Scenario</a>
+        <a href="#borrower-steps" class="transition hover:text-brand-navy">Borrower Steps</a>
+        <a href="#contact" class="transition hover:text-brand-navy">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a href="tel:3173451717" class="hidden items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-brand-navy transition hover:border-brand-blue hover:text-brand-blue sm:inline-flex">
+          <i data-lucide="phone" class="h-4 w-4 text-brand-blue"></i>
+          <span>317.345.1717</span>
+        </a>
+        <a href="#scenario-form" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-navy px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-slate">
+          <span>Submit a Deal</span>
+          <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+        </a>
+        <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" class="inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-slate-600 hover:bg-slate-50 md:hidden">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-4 py-3 md:hidden">
+      <div class="flex flex-col gap-2 text-sm font-medium text-slate-700">
+        <a href="#how-it-works" class="mobile-nav-link rounded-lg px-3 py-2 hover:bg-slate-50">How It Works</a>
+        <a href="#scenario-form" class="mobile-nav-link rounded-lg px-3 py-2 hover:bg-slate-50">Submit Scenario</a>
+        <a href="#borrower-steps" class="mobile-nav-link rounded-lg px-3 py-2 hover:bg-slate-50">Borrower Steps</a>
+        <a href="#contact" class="mobile-nav-link rounded-lg px-3 py-2 hover:bg-slate-50">Contact &amp; Licensing</a>
+        <a href="tel:3173451717" class="mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-sky-50 px-3 py-2.5 font-semibold text-brand-blue">
+          <i data-lucide="phone" class="h-4 w-4"></i>
+          Call Jordan: 317.345.1717
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-brand-navy text-white">
+      <div class="pointer-events-none absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 80% 20%, #3AA7E0 0%, transparent 45%), radial-gradient(circle at 15% 85%, #5CB85C 0%, transparent 40%);"></div>
+      <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
+        <div class="grid items-center gap-10 lg:grid-cols-12">
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-sky-300">
+              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+              When Financing Hits a Roadblock
+            </div>
+            <h1 class="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-5xl sm:leading-[1.1]">
+              Before you give up on the deal, give us a shot.
+            </h1>
+            <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              Difficult deal? Loan turned down? Our team gives challenging mortgage scenarios a second look, including non-QM financing, self-employed and 1099 income, bank statement and tax return options, no credit score borrowers, and recent graduates. Send us the roadblock, whether it's a lender denial, appraisal concern, or guideline issue. We'll review the scenario and help identify potential paths forward.
+            </p>
+            <div class="mt-8 flex flex-wrap items-center gap-3.5">
+              <a href="#scenario-form" class="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-sky-900/30 transition hover:bg-sky-500">
+                <span>Take a Look at My Deal</span>
+                <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+              </a>
+              <button type="button" onclick="openModal('apply-modal')" class="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20">
+                <span>Start Borrower Application</span>
+                <i data-lucide="file-text" class="h-4 w-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Loan Officer Quick Card -->
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-md shadow-2xl">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-sky-300">Direct Scenario Desk</span>
+                  <h2 class="mt-1 text-xl font-bold text-white">Jordan Reichmann</h2>
+                  <p class="text-sm font-medium text-slate-300">Branch Manager / SVP · NMLS #1383159</p>
+                </div>
+                <span class="rounded-lg bg-amber-400/20 border border-amber-300/30 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-amber-200">
+                  Momentum Certified
+                </span>
+              </div>
+
+              <div class="mt-5 space-y-2.5 border-t border-white/15 pt-5 text-sm text-slate-200">
+                <a href="mailto:jordan@mortgageswithjordan.com" class="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition hover:bg-white/10">
+                  <i data-lucide="mail" class="h-4 w-4 text-sky-300 shrink-0"></i>
+                  <span class="truncate">jordan@mortgageswithjordan.com</span>
+                </a>
+                <a href="tel:3173451717" class="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition hover:bg-white/10">
+                  <i data-lucide="phone" class="h-4 w-4 text-sky-300 shrink-0"></i>
+                  <span>o: 317.345.1717 · c: 317.345.1717</span>
+                </a>
+                <div class="flex items-start gap-2.5 px-2 py-1.5">
+                  <i data-lucide="map-pin" class="mt-0.5 h-4 w-4 text-sky-300 shrink-0"></i>
+                  <span>9000 Keystone Crossing, Suite 850<br />Indianapolis, IN 46240 · NMLS #2289</span>
+                </div>
+              </div>
+
+              <div class="mt-5 grid grid-cols-2 gap-2.5 border-t border-white/15 pt-4 text-xs font-semibold">
+                <a href="https://www.fairway.com/lo/jordan-reichmann-1383159" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 rounded-lg bg-white px-3 py-2.5 text-brand-navy transition hover:bg-sky-50">
+                  <span>Fairway Profile</span>
+                  <i data-lucide="external-link" class="h-3.5 w-3.5"></i>
+                </a>
+                <a href="https://www.zillow.com/lender-profile/jdreichmann/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 rounded-lg border border-white/25 bg-white/5 px-3 py-2.5 text-white transition hover:bg-white/15">
+                  <span>My Reviews</span>
+                  <i data-lucide="star" class="h-3.5 w-3.5 text-amber-300"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Step Process Section -->
+    <section id="how-it-works" class="border-b border-slate-200 bg-white py-12 sm:py-16">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wider text-brand-blue">Simple 3-Step Triage</p>
+            <h2 class="mt-1 text-2xl font-extrabold tracking-tight text-brand-navy sm:text-3xl">We'll respond to your scenario within 24 hours.</h2>
+          </div>
+          <p class="max-w-md text-sm text-slate-600">
+            To confirm whether we can make it work, we need the borrower's completed application and requested documents as soon as possible.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 transition hover:border-brand-blue/40 hover:bg-white hover:shadow-md">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl font-extrabold text-brand-blue">01</span>
+              <span class="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-semibold text-brand-blue">~1 Minute</span>
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-brand-navy">Submit this form</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Share the roadblock, timeline, and what the previous lender flagged. Leave out sensitive borrower identifiers for now.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 transition hover:border-brand-blue/40 hover:bg-white hover:shadow-md">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl font-extrabold text-brand-blue">02</span>
+              <span class="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">Borrower Action</span>
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-brand-navy">Have your borrower apply below</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Once your scenario is in, have your borrower complete the secure application so our system can automatically request their file.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 transition hover:border-brand-blue/40 hover:bg-white hover:shadow-md">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl font-extrabold text-brand-blue">03</span>
+              <span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">Fast Turnaround</span>
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-brand-navy">Upload requested documents ASAP</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Getting income, asset, and property docs uploaded quickly lets our team verify guidelines and confirm viable paths forward.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scenario Intake Form Section -->
+    <section id="scenario-form" class="py-14 sm:py-20">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6">
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 sm:p-10">
+          <div class="border-b border-slate-100 pb-6">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-blue">
+              <i data-lucide="clock" class="h-3.5 w-3.5"></i>
+              About 1 Minute
+            </span>
+            <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-brand-navy sm:text-3xl">What's going on?</h2>
+            <p class="mt-1.5 text-sm text-slate-600 sm:text-base">Send our team the scenario. We'll take it from there.</p>
+          </div>
+
+          <!-- Form View -->
+          <form id="deal-form" novalidate class="mt-7 space-y-7">
+            <!-- Contact Info -->
+            <div class="grid gap-5 sm:grid-cols-3">
+              <div>
+                <label for="sender-name" class="block text-sm font-semibold text-slate-800">Your name <span class="text-rose-500">*</span></label>
+                <input id="sender-name" name="name" type="text" required placeholder="Jane Agent" class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20" />
+                <p id="err-name" class="mt-1 hidden text-xs font-medium text-rose-600">Please enter your name.</p>
+              </div>
+              <div>
+                <label for="sender-phone" class="block text-sm font-semibold text-slate-800">Best phone number <span class="text-rose-500">*</span></label>
+                <input id="sender-phone" name="phone" type="tel" required placeholder="(317) 555-0199" class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20" />
+                <p id="err-phone" class="mt-1 hidden text-xs font-medium text-rose-600">Please enter a valid phone number.</p>
+              </div>
+              <div>
+                <label for="sender-email" class="block text-sm font-semibold text-slate-800">Email address <span class="text-rose-500">*</span></label>
+                <input id="sender-email" name="email" type="email" required placeholder="you@example.com" class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20" />
+                <p id="err-email" class="mt-1 hidden text-xs font-medium text-rose-600">Please enter a valid email address.</p>
+              </div>
+            </div>
+
+            <!-- TCPA Consent Notice -->
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs leading-relaxed text-slate-500">
+              By entering your contact information, you are providing express written consent for Fairway Independent Mortgage Corporation to contact you at the email and number you provided via telephone, mobile device, automated means like autodialing, text SMS/MMS and pre-recorded messages, even if you are registered on a corporate, state, or federal Do Not Call list. You are also acknowledging and agreeing to our <button type="button" onclick="openModal('terms-modal')" class="font-semibold text-brand-blue underline hover:text-brand-navy">terms of service</button> and <button type="button" onclick="openModal('privacy-modal')" class="font-semibold text-brand-blue underline hover:text-brand-navy">privacy policy</button>. Consent is not required to use our services.
+            </div>
+
+            <!-- Roadblock Selection -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-800">
+                What's holding up the deal? <span class="text-rose-500">*</span>
+              </label>
+              <p class="mt-0.5 text-xs text-slate-500">Select the main roadblock</p>
+              <div class="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+                <label class="roadblock-card cursor-pointer">
+                  <input type="radio" name="roadblock" value="Income / Self-employed" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Income / Self-employed</span>
+                  </div>
+                </label>
+                <label class="roadblock-card cursor-pointer">
+                  <input type="radio" name="roadblock" value="Non-QM / Alternative documentation" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Non-QM / Alt docs</span>
+                  </div>
+                </label>
+                <label class="roadblock-card cursor-pointer">
+                  <input type="radio" name="roadblock" value="Credit" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Credit</span>
+                  </div>
+                </label>
+                <label class="roadblock-card cursor-pointer">
+                  <input type="radio" name="roadblock" value="Down payment" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Down payment</span>
+                  </div>
+                </label>
+                <label class="roadblock-card cursor-pointer">
+                  <input type="radio" name="roadblock" value="Property / Appraisal" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Property / Appraisal</span>
+                  </div>
+                </label>
+                <label class="roadblock-card cursor-pointer">
+                  <input type="radio" name="roadblock" value="Lender denied it" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Lender denied it</span>
+                  </div>
+                </label>
+                <label class="roadblock-card cursor-pointer sm:col-span-2 lg:col-span-3">
+                  <input type="radio" name="roadblock" value="Not sure / Something else" class="sr-only" />
+                  <div class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300">
+                    <span class="roadblock-check flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px]">✓</span>
+                    <span>Not sure / Something else</span>
+                  </div>
+                </label>
+              </div>
+              <p id="err-roadblock" class="mt-1.5 hidden text-xs font-medium text-rose-600">Please select the main roadblock.</p>
+            </div>
+
+            <!-- Quick Version & Close Date -->
+            <div class="grid gap-5 sm:grid-cols-3">
+              <div class="sm:col-span-2">
+                <label for="scenario-notes" class="block text-sm font-semibold text-slate-800">
+                  Give us the quick version. <span class="text-rose-500">*</span>
+                </label>
+                <p class="mt-0.5 text-xs text-slate-500">What did the lender say, or what needs to be solved?</p>
+                <textarea id="scenario-notes" name="notes" rows="4" required placeholder="Example: Self-employed borrower, 2025 write-offs reduced net income, looking at 12-month bank statement options. Purchase price ~$425k, 15% down..." class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20"></textarea>
+                <p id="err-notes" class="mt-1 hidden text-xs font-medium text-rose-600">Please share a brief summary of the scenario.</p>
+              </div>
+              <div>
+                <label for="close-date" class="block text-sm font-semibold text-slate-800">
+                  When does it need to close?
+                </label>
+                <p class="mt-0.5 text-xs text-slate-500">Optional</p>
+                <input id="close-date" name="closeDate" type="text" placeholder="e.g., Dec 15 or 30 days" class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20" />
+              </div>
+            </div>
+
+            <!-- Routing & Privacy Reminder -->
+            <div class="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-xs leading-relaxed text-amber-950">
+              <i data-lucide="shield-alert" class="mt-0.5 h-4 w-4 shrink-0 text-amber-600"></i>
+              <p>
+                This form prepares your scenario for <strong class="font-semibold">jordan@mortgageswithjordan.com</strong> for review. Please leave out borrower names, Social Security numbers, account numbers, and other sensitive information.
+              </p>
+            </div>
+
+            <!-- Submit -->
+            <div class="flex flex-col items-start justify-between gap-4 pt-1 sm:flex-row sm:items-center">
+              <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-navy px-7 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-brand-slate sm:w-auto">
+                <span>Take a Look at My Deal</span>
+                <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+              </button>
+              <p class="text-xs text-slate-500">A scenario review is not a loan application or a guarantee of financing.</p>
+            </div>
+          </form>
+
+          <!-- Confirmation State (shown after submit) -->
+          <div id="form-confirmation" class="mt-7 hidden space-y-6">
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-6">
+              <div class="flex items-start gap-3.5">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
+                  <i data-lucide="check" class="h-5 w-5"></i>
+                </div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="text-lg font-bold text-emerald-950">Scenario Ready for Jordan Reichmann</h3>
+                    <span id="confirm-ref" class="rounded-full bg-white px-2.5 py-0.5 text-xs font-bold text-emerald-800 border border-emerald-200"></span>
+                  </div>
+                  <p class="mt-1 text-sm text-emerald-900">
+                    Click <strong>Send Email to Jordan</strong> below to launch your email client pre-addressed to <strong>jordan@mortgageswithjordan.com</strong>, or copy the formatted brief to text/call <strong>317.345.1717</strong>.
+                  </p>
+                </div>
+              </div>
+
+              <pre id="confirm-summary" class="mt-4 overflow-x-auto whitespace-pre-wrap rounded-xl border border-emerald-200 bg-white p-4 font-sans text-xs leading-relaxed text-slate-700"></pre>
+
+              <div class="mt-5 flex flex-wrap items-center gap-3">
+                <a id="mailto-btn" href="mailto:jordan@mortgageswithjordan.com" class="inline-flex items-center gap-2 rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-slate">
+                  <i data-lucide="send" class="h-4 w-4"></i>
+                  <span>Send Email to Jordan</span>
+                </a>
+                <button type="button" id="copy-summary-btn" class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                  <i data-lucide="copy" class="h-4 w-4"></i>
+                  <span>Copy Scenario Summary</span>
+                </button>
+                <button type="button" id="reset-form-btn" class="inline-flex items-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:text-brand-navy">
+                  <i data-lucide="rotate-ccw" class="h-4 w-4"></i>
+                  <span>Submit Another Scenario</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next: Borrower Application & Documents -->
+    <section id="borrower-steps" class="border-t border-slate-200 bg-white py-14 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid items-start gap-8 lg:grid-cols-12">
+          <div class="lg:col-span-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-blue">Steps 02 &amp; 03</span>
+            <h2 class="mt-2 text-2xl font-extrabold tracking-tight text-brand-navy sm:text-3xl">
+              Next: borrower application &amp; documents
+            </h2>
+            <p class="mt-3 text-base leading-relaxed text-slate-600">
+              Have your borrower complete the secure application below. It will automatically request their documents.
+            </p>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">
+              Upload all requested documents as soon as possible. We need the completed application and documents to confirm whether we can move forward.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <button type="button" onclick="openModal('apply-modal')" class="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-6 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-sky-600">
+                <span>Start Borrower Application</span>
+                <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+              </button>
+              <button type="button" id="copy-borrower-msg-btn" class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                <i data-lucide="message-square" class="h-4 w-4 text-brand-blue"></i>
+                <span>Copy Text/Email for Borrower</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Document Readiness Checklist -->
+          <div class="lg:col-span-6">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-base font-bold text-brand-navy">Quick Document Readiness Checklist</h3>
+                  <p class="text-xs text-slate-500">Check off items your borrower already has ready</p>
+                </div>
+                <span id="checklist-progress" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-blue border border-slate-200">0 / 5 Ready</span>
+              </div>
+
+              <div class="mt-4 space-y-2.5" id="doc-checklist">
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 transition hover:border-brand-blue/40">
+                  <input type="checkbox" class="doc-check h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" />
+                  <span>Government-issued photo ID</span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 transition hover:border-brand-blue/40">
+                  <input type="checkbox" class="doc-check h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" />
+                  <span>2 years tax returns / W-2s or 1099s (or 12–24 mo. bank statements for Non-QM)</span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 transition hover:border-brand-blue/40">
+                  <input type="checkbox" class="doc-check h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" />
+                  <span>Most recent 30 days of paystubs (if salaried/hourly)</span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 transition hover:border-brand-blue/40">
+                  <input type="checkbox" class="doc-check h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" />
+                  <span>2 months complete bank / asset statements (all pages)</span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 transition hover:border-brand-blue/40">
+                  <input type="checkbox" class="doc-check h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" />
+                  <span>Purchase contract, appraisal, or prior denial notes (if applicable)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer & Regulatory Disclosures -->
+  <footer id="contact" class="border-t border-slate-800 bg-brand-navy text-slate-300">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="grid gap-8 border-b border-white/10 pb-10 md:grid-cols-12">
+        <!-- Brand & LO Info -->
+        <div class="md:col-span-5 space-y-3">
+          <div>
+            <p class="text-sm font-extrabold tracking-wide text-white">DEAL DOCTOR 911</p>
+            <p class="text-xs text-sky-300">Powered by Hallmark Home Mortgage at Fairway</p>
+          </div>
+          <div class="pt-2 text-sm">
+            <p class="font-bold text-white">Jordan Reichmann · Branch Manager / SVP</p>
+            <p class="text-xs text-slate-300">NMLS #1383159 · IN license #28318</p>
+            <p class="mt-2 text-xs text-slate-300">9000 Keystone Crossing, Suite 850, Indianapolis, IN 46240 · NMLS #2289</p>
+            <p class="mt-1 text-xs">
+              <a href="tel:3173451717" class="font-semibold text-white hover:text-sky-300">317.345.1717</a>
+              <span class="mx-1.5 text-slate-500">·</span>
+              <a href="mailto:jordan@mortgageswithjordan.com" class="font-semibold text-white hover:text-sky-300">jordan@mortgageswithjordan.com</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Corporate Info -->
+        <div class="md:col-span-4 space-y-2 text-xs leading-relaxed">
+          <p class="text-sm font-bold text-white">Fairway Independent Mortgage Corporation</p>
+          <p>Doing business as Fairway Home Mortgage · NMLS #2289</p>
+          <p>4750 S. Biltmore Lane, Madison, WI 53718</p>
+          <p><a href="tel:8669124800" class="text-white hover:text-sky-300">866-912-4800</a></p>
+          <div class="pt-2 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+            <i data-lucide="home" class="h-3.5 w-3.5 text-sky-300"></i>
+            <span>Equal Housing Opportunity</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="md:col-span-3 space-y-2 text-xs">
+          <p class="text-sm font-bold text-white">Licensing &amp; Disclosures</p>
+          <ul class="space-y-1.5 text-slate-300">
+            <li><button type="button" onclick="openModal('licensing-modal')" class="hover:text-white underline-offset-2 hover:underline">Loan Officer Licensing</button></li>
+            <li><button type="button" onclick="openModal('company-modal')" class="hover:text-white underline-offset-2 hover:underline">Company Licensing</button></li>
+            <li><button type="button" onclick="openModal('disclosures-modal')" class="hover:text-white underline-offset-2 hover:underline">Legal Disclosures</button></li>
+            <li><button type="button" onclick="openModal('privacy-modal')" class="hover:text-white underline-offset-2 hover:underline">Privacy Policy</button></li>
+            <li><button type="button" onclick="openModal('terms-modal')" class="hover:text-white underline-offset-2 hover:underline">Terms of Use</button></li>
+            <li><button type="button" onclick="openModal('complaints-modal')" class="hover:text-white underline-offset-2 hover:underline">Customer Service &amp; Complaints</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 space-y-3 text-[11px] leading-relaxed text-slate-400">
+        <p>
+          Scenario reviews are informational and do not constitute a loan application, approval, commitment to lend, or offer to enter an agreement. Eligibility depends on applicable program requirements and review of credit, income, documentation, and property. Programs and terms may change, and availability varies by state and loan amount. Additional restrictions may apply. Fairway is independent of government agencies.
+        </p>
+        <p>
+          Copyright © 2026 Fairway Independent Mortgage Corporation doing business as Fairway Home Mortgage. NMLS #2289.
+          <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer" class="text-sky-300 underline hover:text-white">www.nmlsconsumeraccess.org</a>.
+          All Rights Reserved. Equal Housing Opportunity.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared Modal Backdrop -->
+  <div id="modal-backdrop" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm">
+    <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
+      <button type="button" onclick="closeModal()" aria-label="Close modal" class="absolute right-4 top-4 rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+        <i data-lucide="x" class="h-5 w-5"></i>
+      </button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Toast Helper
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 2800);
+    }
+
+    // Clipboard Helper with execCommand fallback
+    function copyText(text, successMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+    function fallbackCopy(text, successMsg) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (e) {
+        showToast('Could not copy automatically.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    // Phone formatter
+    const phoneInput = document.getElementById('sender-phone');
+    phoneInput.addEventListener('input', (e) => {
+      const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+      if (digits.length >= 7) {
+        e.target.value = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+      } else if (digits.length >= 4) {
+        e.target.value = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+      } else {
+        e.target.value = digits;
+      }
+    });
+
+    // Document Checklist Progress
+    const checks = document.querySelectorAll('.doc-check');
+    const progressEl = document.getElementById('checklist-progress');
+    checks.forEach(ch => {
+      ch.addEventListener('change', () => {
+        const done = document.querySelectorAll('.doc-check:checked').length;
+        progressEl.textContent = `${done} / ${checks.length} Ready`;
+      });
+    });
+
+    // Copy Borrower Message
+    document.getElementById('copy-borrower-msg-btn').addEventListener('click', () => {
+      const msg = [
+        'Hi! I am working with Jordan Reichmann (Branch Manager/SVP, NMLS #1383159) at Hallmark Home Mortgage / Fairway to take a second look at your financing options.',
+        'Please complete his secure online application here: https://www.fairway.com/lo/jordan-reichmann-1383159',
+        'If you have questions, you can reach Jordan directly at 317.345.1717 or jordan@mortgageswithjordan.com.'
+      ].join('\n\n');
+      copyText(msg, 'Borrower application message copied!');
+    });
+
+    // Scenario Form Submission
+    const dealForm = document.getElementById('deal-form');
+    const confirmBox = document.getElementById('form-confirmation');
+    let latestSummary = '';
+
+    dealForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('sender-name').value.trim();
+      const phone = document.getElementById('sender-phone').value.trim();
+      const email = document.getElementById('sender-email').value.trim();
+      const notes = document.getElementById('scenario-notes').value.trim();
+      const closeDate = document.getElementById('close-date').value.trim() || 'Not specified';
+      const roadblockEl = document.querySelector('input[name="roadblock"]:checked');
+      const roadblock = roadblockEl ? roadblockEl.value : '';
+
+      let valid = true;
+      document.getElementById('err-name').classList.toggle('hidden', !!name);
+      if (!name) valid = false;
+
+      const phoneDigits = phone.replace(/\D/g, '');
+      const phoneOk = phoneDigits.length >= 10;
+      document.getElementById('err-phone').classList.toggle('hidden', phoneOk);
+      if (!phoneOk) valid = false;
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      document.getElementById('err-email').classList.toggle('hidden', emailOk);
+      if (!emailOk) valid = false;
+
+      document.getElementById('err-roadblock').classList.toggle('hidden', !!roadblock);
+      if (!roadblock) valid = false;
+
+      document.getElementById('err-notes').classList.toggle('hidden', !!notes);
+      if (!notes) valid = false;
+
+      if (!valid) return;
+
+      const refId = 'DD911-' + Math.floor(100000 + Math.random() * 900000);
+      latestSummary = [
+        `DEAL DOCTOR 911 — SCENARIO REVIEW (${refId})`,
+        `To: Jordan Reichmann (jordan@mortgageswithjordan.com | 317.345.1717)`,
+        `From: ${name}`,
+        `Phone: ${phone}`,
+        `Email: ${email}`,
+        `Main Roadblock: ${roadblock}`,
+        `Target Closing: ${closeDate}`,
+        ``,
+        `Scenario Summary:`,
+        notes
+      ].join('\n');
+
+      document.getElementById('confirm-ref').textContent = refId;
+      document.getElementById('confirm-summary').textContent = latestSummary;
+
+      const subject = encodeURIComponent(`Deal Doctor 911 Scenario (${roadblock}) — ${name}`);
+      const body = encodeURIComponent(latestSummary);
+      document.getElementById('mailto-btn').href = `mailto:jordan@mortgageswithjordan.com?subject=${subject}&body=${body}`;
+
+      dealForm.classList.add('hidden');
+      confirmBox.classList.remove('hidden');
+      showToast('Scenario brief prepared for Jordan!');
+    });
+
+    document.getElementById('copy-summary-btn').addEventListener('click', () => {
+      if (latestSummary) copyText(latestSummary, 'Scenario summary copied!');
+    });
+
+    document.getElementById('reset-form-btn').addEventListener('click', () => {
+      dealForm.reset();
+      confirmBox.classList.add('hidden');
+      dealForm.classList.remove('hidden');
+    });
+
+    // Modals
+    const modalContentMap = {
+      'apply-modal': `
+        <h3 class="text-xl font-bold text-brand-navy">Start Borrower Application</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Direct your borrower to Jordan Reichmann's official Fairway / Hallmark Home Mortgage portal to complete their secure application and upload requested documents.
+        </p>
+        <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm space-y-1.5">
+          <p class="font-bold text-brand-navy">Jordan Reichmann · Branch Manager/SVP</p>
+          <p class="text-xs text-slate-600">NMLS #1383159 · Hallmark Home Mortgage NMLS #2289</p>
+          <p class="text-xs text-slate-600">Direct / Cell: 317.345.1717 · jordan@mortgageswithjordan.com</p>
+        </div>
+        <div class="mt-5 flex flex-wrap gap-2.5">
+          <a href="https://www.fairway.com/lo/jordan-reichmann-1383159" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-slate">
+            <span>Open Fairway Portal</span>
+            <i data-lucide="external-link" class="h-4 w-4"></i>
+          </a>
+          <a href="tel:3173451717" class="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+            <i data-lucide="phone" class="h-4 w-4"></i>
+            <span>Call 317.345.1717</span>
+          </a>
+        </div>
+      `,
+      'licensing-modal': `
+        <h3 class="text-lg font-bold text-brand-navy">Loan Officer Licensing</h3>
+        <p class="mt-1 text-sm text-slate-600">Jordan Reichmann · NMLS #1383159</p>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li><strong>Indiana:</strong> License #28318</li>
+          <li><strong>Florida:</strong> License #LO36688</li>
+          <li><strong>Kansas:</strong> License #LO.0051511</li>
+          <li><strong>Ohio:</strong> License #MLO-OH.1383159</li>
+          <li><strong>South Carolina:</strong> License #MLO - 1383159</li>
+          <li><strong>Tennessee:</strong> License #1383159</li>
+          <li><strong>Illinois:</strong> Licensed Mortgage Loan Originator</li>
+        </ul>
+        <p class="mt-4 text-xs text-slate-500">Verify at <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer" class="text-brand-blue underline">www.nmlsconsumeraccess.org</a>.</p>
+      `,
+      'company-modal': `
+        <h3 class="text-lg font-bold text-brand-navy">Company Licensing</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          <strong>Hallmark Home Mortgage</strong> (Powered by Fairway) · NMLS #2289<br />
+          9000 Keystone Crossing, Suite 850, Indianapolis, IN 46240
+        </p>
+        <p class="mt-3 text-sm text-slate-600">
+          <strong>Fairway Independent Mortgage Corporation</strong> (dba Fairway Home Mortgage) · NMLS #2289<br />
+          4750 S. Biltmore Lane, Madison, WI 53718 · 866-912-4800
+        </p>
+      `,
+      'disclosures-modal': `
+        <h3 class="text-lg font-bold text-brand-navy">Legal Disclosures</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          Scenario reviews are informational and do not constitute a loan application, approval, commitment to lend, or offer to enter an agreement. Eligibility depends on applicable program requirements and review of credit, income, documentation, and property. Programs and terms may change, and availability varies by state and loan amount. Fairway is independent of government agencies. Equal Housing Opportunity.
+        </p>
+      `,
+      'privacy-modal': `
+        <h3 class="text-lg font-bold text-brand-navy">Privacy Policy</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          Information entered into this scenario review form is used solely to evaluate mortgage scenario options with Jordan Reichmann (jordan@mortgageswithjordan.com) and Hallmark Home Mortgage / Fairway Home Mortgage. Do not submit Social Security numbers, account numbers, or sensitive borrower identifiers in the scenario form.
+        </p>
+      `,
+      'terms-modal': `
+        <h3 class="text-lg font-bold text-brand-navy">Terms of Use</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          This site is provided for informational scenario triage by real estate professionals, partners, and prospective borrowers. Submission of a scenario does not lock a rate, initiate a formal loan application, or guarantee loan approval.
+        </p>
+      `,
+      'complaints-modal': `
+        <h3 class="text-lg font-bold text-brand-navy">Customer Service &amp; Complaints</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          <strong>Local Branch / Jordan Reichmann:</strong> 317.345.1717 · jordan@mortgageswithjordan.com<br />
+          <strong>Fairway Customer Service:</strong> 800-201-7544<br />
+          <strong>Complaints Hotline:</strong> 877-699-0353
+        </p>
+      `
+    };
+
+    const backdrop = document.getElementById('modal-backdrop');
+    const modalContent = document.getElementById('modal-content');
+
+    function openModal(id) {
+      modalContent.innerHTML = modalContentMap[id] || '';
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('flex');
+      lucide.createIcons();
+    }
+    function closeModal() {
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+    }
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !backdrop.classList.contains('hidden')) closeModal();
+    });
+  </script>
+</body>
+</html>
